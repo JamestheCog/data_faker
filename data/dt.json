@@ -1,0 +1,48 @@
+{
+    "practical": [
+        "1 - Child care",
+        "2 - Housing",
+        "3 - Insurance/Financial",
+        "4 - Transportation",
+        "5 - Work/School",
+        "6 - Treatment decisions"
+    ],
+    "family": [
+        "7 - Dealing with children",
+        "8 - Dealing with partner",
+        "9 - Ability to have children",
+        "10 - Family health issues"
+    ],
+    "emotional": [
+        "11 - Depression",
+        "12 - Fears",
+        "13 - Nervousness",
+        "14 - Sadness",
+        "15 - Worry",
+        "16 - Loss of interest in usual activities",
+        "17 - Spiritual/Religious concerns"
+    ],
+    "physical": [
+        "18 - Appearance",
+        "19 - Bathing/Dressing",
+        "20 - Breathing",
+        "21 - Changes in urination",
+        "22 - Constipation",
+        "23 - Diarrhea",
+        "24 - Eating",
+        "25 - Fatigue",
+        "26 - Feeling swollen",
+        "27 - Fevers",
+        "28 - Getting around",
+        "29 - Indigestion",
+        "30 - Memory/Concentration",
+        "31 - Mouth sores",
+        "32 - Nausea",
+        "33 - Nose dry/congested",
+        "34 - Pain",
+        "35 - Sexual health",
+        "36 - Skin dry/itchy",
+        "37 - Sleep",
+        "38 - Tingling in hands/feet"
+    ]
+}
