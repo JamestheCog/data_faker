@@ -10,6 +10,10 @@ import (
 	"github.com/jamesthecog/faker/senders"
 )
 
+// NB: I've directly used generator.FakeData() for single-send modes - because there's
+// literally no reason why we can't just send the request ourselves here (i.e., not make a
+// helper function elsewhere) when the utilities needed to do so are already present PLUS
+// it's not meaningfully different like the other modes.
 func main() {
 	dest := flag.String("dest", "", "The endpoint or URL to send fake data to.")
 	sendMode := flag.String("mode", "single", "The kind of request to simulate ('single', 'batch', 'high_volume', and 'concurrent').")
