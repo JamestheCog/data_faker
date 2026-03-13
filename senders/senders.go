@@ -12,7 +12,6 @@ import (
 	"context"
 	"log"
 	"math/rand/v2"
-	"runtime"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -76,9 +75,6 @@ TimeLoop:
 // numWorkers is a 1 - there's no point in using this function if the user's machine
 // is a potato.
 func ConcurrentSending(dest string, numWorkers int, duration int) {
-	if numWorkers < 1 {
-		log.Fatalf("Your machine only has %d CPUs available - it's too weak to be doing things via concurrency.", runtime.NumCPU())
-	}
 	var (
 		wg            sync.WaitGroup
 		responsesSent atomic.Int64
