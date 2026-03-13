@@ -25,6 +25,9 @@ func main() {
 	if strings.TrimSpace(*dest) == "" {
 		log.Fatalln("`dest` cannot be an empty string!")
 	}
+	if *numWorkers == 1 {
+		log.Fatalln("Your machine's too weak to be doing things concurrently - try one of the other modes instead!")
+	}
 
 	sendChoice := strings.TrimSpace(strings.ToLower(*sendMode))
 	switch sendChoice {
