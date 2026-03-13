@@ -2,7 +2,6 @@ package generator
 
 import (
 	"encoding/json"
-	"fmt"
 	"math/rand/v2"
 	"os"
 )
@@ -30,20 +29,18 @@ func loadJson[T any](jsonPath string) (T, error) {
 // A helper function that, given a slice and a number "n", generate
 // a subset of "n" items from the said slice.  Duplicates are
 // purposely allowed here:
-func randomSample[T any](slice []T, n int) ([]T, error) {
-	if n > len(slice) {
-		return nil, fmt.Errorf("`n` cannot be larger than `len(slice)`!")
-	}
+func randomSample[T any](slice []T, n int) []T {
 	toReturn := make([]T, n)
 
 	for i := 0; i < len(toReturn); i++ {
 		j := rand.IntN(len(slice))
 		toReturn[i] = slice[j]
 	}
-	return toReturn, nil
+	return toReturn
 }
 
 // A generic function that essentially removes an element from a slice.
+// 'nuff said.
 func removeElement[T comparable](slice []T, element T) []T {
 	splitInd := -1
 	for i, v := range slice {

@@ -72,7 +72,7 @@ const (
 // Fakes personal information with faker's personal information API.  A random float
 // will be used to determine if the person in question will be a male or a female.
 //
-// If rand.Float64() is smaller than or equal to GenderThres, then let our patient be a male and
+// If rand.Float64() is smaller than or equal to GenderThres, then let our patient be a female and
 // vice versa.
 func fakePersonalInfo() map[string]string {
 	randFloat := rand.Float64()
@@ -119,11 +119,7 @@ func fakeDistressInfo() (map[string]any, error) {
 		} else {
 			toSample = v
 		}
-		res, err := randomSample(toSample, numProblems)
-		if err != nil {
-			return nil, err
-		}
-		result[k] = res
+		result[k] = randomSample(toSample, numProblems)
 	}
 	return result, nil
 }
@@ -164,19 +160,11 @@ func fakeMUSTData(gender string) (map[string]any, error) {
 		return nil, fmt.Errorf("`gender` has to be 'male' or 'female'!")
 	}
 
-	result["height"] = height
-	result["weight_before"] = beforeWeight
-	result["weight_current"] = curWeight
-	q1Res, err := randomSample(choices, 1)
-	if err != nil {
-		return nil, err
-	}
-	q2Res, err := randomSample(choices, 1)
-	if err != nil {
-		return nil, err
-	}
-	result["must_q1"] = q1Res[0]
-	result["must_q2"] = q2Res[0]
+	result["height"] = fmt.Sprintf("%.2f", height)
+	result["weight_before"] = fmt.Sprintf("%.2f", beforeWeight)
+	result["weight_current"] = fmt.Sprintf("%.2f", curWeight)
+	result["must_q1"] = randomSample(choices, 1)[0]
+	result["must_q2"] = randomSample(choices, 1)[0]
 
 	return result, nil
 }
