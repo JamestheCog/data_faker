@@ -19,10 +19,14 @@ func main() {
 	sendMode := flag.String("mode", "single", "The kind of request to simulate ('single', 'batch', 'high_volume', and 'concurrent').")
 	numRequests := flag.Int("num_requests", 5, "How many requests should be sent (only applicable for batch requests)?")
 	requestDuration := flag.Int("duration", 10, "How long should requests be sent for (only applicable for streaming requests)?")
-	numWorkers := flag.Int("num_workers", max(1, runtime.NumCPU()-2), "The amount of concurrent processes to spawn for concurrent sending")
+	numWorkers := flag.Int("num_workers", max(1, runtime.NumCPU()-3), "The amount of concurrent processes to spawn for concurrent sending")
 	flag.Parse()
 
-	sendChoice := strings.ToLower(strings.ToLower(*sendMode))
+	if strings.TrimSpace(*dest) == "" {
+		log.Fatalln("`dest` cannot be an empty string!")
+	}
+
+	sendChoice := strings.TrimSpace(strings.ToLower(*sendMode))
 	switch sendChoice {
 	case "single":
 		payload, err := generator.FakeData()
@@ -36,5 +40,7 @@ func main() {
 		senders.HighVolume(*dest, *requestDuration)
 	case "concurrent":
 		senders.ConcurrentSending(*dest, *numWorkers, *requestDuration)
+	default:
+		log.Fatalln("'mode' needs to be one of the following: 'single', 'batch', 'high_volume', or 'concurrent'!")
 	}
 }
