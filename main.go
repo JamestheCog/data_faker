@@ -22,14 +22,15 @@ func main() {
 	numWorkers := flag.Int("num_workers", max(1, runtime.NumCPU()-3), "The amount of concurrent processes to spawn for concurrent sending")
 	flag.Parse()
 
+	sendChoice := strings.TrimSpace(strings.ToLower(*sendMode))
+
 	if strings.TrimSpace(*dest) == "" {
 		log.Fatalln("`dest` cannot be an empty string!")
 	}
-	if *numWorkers == 1 {
+	if *numWorkers == 1 && sendChoice == "concurrent" {
 		log.Fatalln("Your machine's too weak to be doing things concurrently - try one of the other modes instead!")
 	}
 
-	sendChoice := strings.TrimSpace(strings.ToLower(*sendMode))
 	switch sendChoice {
 	case "single":
 		payload, err := generator.FakeData()
