@@ -48,12 +48,11 @@ func HighVolume(dest string, duration int) {
 	countDown := time.After(time.Duration(duration) * time.Second)
 	numRequests := 0
 
-TimeLoop:
 	for {
 		select {
 		case <-countDown:
 			log.Printf("%d seconds is up - %d requests sent!\n", duration, numRequests)
-			break TimeLoop
+			return
 		default:
 			payload, err := generator.FakeData()
 			if err != nil {

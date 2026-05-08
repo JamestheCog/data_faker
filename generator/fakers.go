@@ -76,6 +76,7 @@ const (
 // vice versa.
 func fakePersonalInfo() map[string]string {
 	randFloat := rand.Float64()
+	timepoint := []string{"baseline", "month 1", "month 3", "month 6", "month 9", "month 12"}
 	personalInfo := make(map[string]string)
 
 	if randFloat <= GenderThres {
@@ -89,6 +90,7 @@ func fakePersonalInfo() map[string]string {
 	address, country := faker.GetRealAddress(), faker.GetCountryInfo()
 	personalInfo["home_address"] = address.Address
 	personalInfo["nationality"] = country.Name
+	personalInfo["timepoint"] = timepoint[rand.IntN(len(timepoint))]
 	return personalInfo
 }
 

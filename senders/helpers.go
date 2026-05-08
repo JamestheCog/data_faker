@@ -27,7 +27,12 @@ func SendPayload(dest string, payload map[string]any) {
 		log.Fatalln(err)
 	}
 	defer response.Body.Close()
-	log.Printf("Message sent! (status %d)\n", response.StatusCode)
+
+	if response.StatusCode != 200 {
+		log.Printf("Unable to send message (error %d)!\n", response.StatusCode)
+	} else {
+		log.Printf("Message sent! (status %d)\n", response.StatusCode)
+	}
 }
 
 // The worker for the concurrent sending mode - separated out

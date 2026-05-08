@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"log"
+	"os"
 	"runtime"
 	"strings"
 
@@ -16,7 +17,7 @@ import (
 // it's not meaningfully different like the other modes.
 func main() {
 	dest := flag.String("dest", "", "The endpoint or URL to send fake data to.")
-	sendMode := flag.String("mode", "single", "The kind of request to simulate ('single', 'batch', 'high_volume', and 'concurrent').")
+	sendMode := flag.String("mode", "single", "The kind of request to simulate ('single', 'batch', 'high_vol', and 'concurrent').")
 	numRequests := flag.Int("num_requests", 5, "How many requests should be sent (only applicable for batch requests)?")
 	requestDuration := flag.Int("duration", 10, "How long should requests be sent for (only applicable for streaming requests)?")
 	numWorkers := flag.Int("num_workers", max(1, runtime.NumCPU()-3), "The amount of concurrent processes to spawn for concurrent sending")
@@ -24,8 +25,9 @@ func main() {
 
 	sendChoice := strings.TrimSpace(strings.ToLower(*sendMode))
 
-	if strings.TrimSpace(*dest) == "" {
-		log.Fatalln("`dest` cannot be an empty string!")
+	if *dest == "" || *sendMode == "" || *numRequests == 0 || *requestDuration == 0 || *numWorkers == 0 {
+		flag.Usage()
+		os.Exit(0)
 	}
 	if *numWorkers == 1 && sendChoice == "concurrent" {
 		log.Fatalln("Your machine's too weak to be doing things concurrently - try one of the other modes instead!")
@@ -40,7 +42,7 @@ func main() {
 		senders.SendPayload(*dest, payload)
 	case "batch":
 		senders.SendBatch(*dest, *numRequests)
-	case "high_volume":
+	case "high_vol":
 		senders.HighVolume(*dest, *requestDuration)
 	case "concurrent":
 		senders.ConcurrentSending(*dest, *numWorkers, *requestDuration)
