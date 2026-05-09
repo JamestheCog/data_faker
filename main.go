@@ -34,7 +34,8 @@ func main() {
 	flag.IntVar(&numWorkers, "num_workers", defWorkers, "")
 
 	flag.Usage = func() {
-		fmt.Fprintf(os.Stderr, "Usage instructions for %s:\n", os.Args[0])
+		programName := strings.Split(os.Args[0], "\\")
+		fmt.Fprintf(os.Stderr, "Usage instructions for %s:\n", strings.TrimSpace(programName[len(programName)-1]))
 		fmt.Fprint(os.Stderr, "  -l, -location string\n    \tThe destination address you want the payload sent to.\n")
 		fmt.Fprint(os.Stderr, "  -m, -mode string\n    \tThe sending mode you want the CLI app to simulate: `single`, `batch`, `high_vol`, or "+
 			"`concurrent` (default: single).\n")
