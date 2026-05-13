@@ -24,7 +24,7 @@ cd data_faker
 
 And only then - follow the below commands depending on the operating system that you're using!
 
-## ...for Windows Computers
+## 🪟 ...for Windows Computers
 
 You can use Golang's `go build` like so (don't forget the `.exe` extension):
 
@@ -32,7 +32,7 @@ You can use Golang's `go build` like so (don't forget the `.exe` extension):
 go build -o windows-send.exe
 ```
 
-## ...for MacOS Machines
+## 🍎 ...for MacOS Machines
 
 This is a little trickier as Apple machines have different chip generations: Intel-based ones and Apple Silicon's M1 to M3 chips.  So, you'll need to adjust Go's compilation settings accordingly before running `go build`:
 
@@ -48,7 +48,7 @@ This is a little trickier as Apple machines have different chip generations: Int
 
 And you should be able to run those said binaries on your machine!
 
-## ...for Linux Machines
+## 🐧 ...for Linux Machines
 
 You will need to re-configure Go's compilation environment like MacOS users would, but the simplicity still stands:
 
