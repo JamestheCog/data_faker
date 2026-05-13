@@ -6,6 +6,9 @@ import (
 
 	// Needed to fake personal data
 	"github.com/go-faker/faker/v4"
+
+	// User-defined module; where our data lives:
+	"github.com/jamesthecog/faker/data"
 )
 
 // The main helper function to be exported out of github.com/jamesthecog/generator.  This
@@ -102,22 +105,17 @@ func fakePersonalInfo() map[string]string {
 // I've also written this function such that if rand.Float64() is lesser than
 // RightWrongThres, then we'll return a potentially bad slice.
 func fakeDistressInfo() (map[string]any, error) {
-	dtData, err := loadJson[map[string][]string](distressDataPath)
-	if err != nil {
-		return nil, fmt.Errorf("Failed to load in DT data: %v", err)
-	}
-
 	result, dtScore := make(map[string]any), rand.IntN(maxDistress)
 	result["distress_rating"] = dtScore
 	categories := []string{"emotional", "family", "practical", "physical"}
 
-	for k, v := range dtData {
+	for k, v := range data.DistressThermometer {
 		var toSample []string
 		numProblems := rand.IntN(max(fallbackAmt, dtScore))
 		if rand.Float64() < badDTThres {
 			trimmedCats := removeElement(categories, k)
 			badCat := trimmedCats[rand.IntN(len(trimmedCats))]
-			toSample = append(v, dtData[badCat]...)
+			toSample = append(v, data.DistressThermometer[badCat]...)
 		} else {
 			toSample = v
 		}
@@ -176,13 +174,8 @@ func fakeMUSTData(gender string) (map[string]any, error) {
 // is meant to be an integer, but can be a float if rand.Float64()
 // returns a float lesser than eq5d5lThres.
 func fakeEQ5D5LData() (map[string]any, error) {
-	eq5d5lData, err := loadJson[map[string][]string](eq5d5lPath)
-	if err != nil {
-		return nil, err
-	}
-
 	eq5d5lSample := make(map[string]any)
-	for k, v := range eq5d5lData {
+	for k, v := range data.EQ5D5L {
 		eq5d5lSample[k] = v[rand.IntN(len(v))]
 	}
 	rating := float64(rand.IntN(eq5d5lRatingMax))
