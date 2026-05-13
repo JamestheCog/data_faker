@@ -55,6 +55,9 @@ func main() {
 	if numWorkers == 1 && sendChoice == "concurrent" {
 		log.Fatalln("Your machine's too weak to be doing things concurrently - try one of the other modes instead!")
 	}
+	if requestDuration <= 0 && (sendChoice == "high_vol" || sendChoice == "concurrent") {
+		log.Fatalln("You can't run those modes with a non-positive amount of seconds!")
+	}
 
 	switch sendChoice {
 	case "single":
